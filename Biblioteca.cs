@@ -19,12 +19,22 @@ namespace csharp_biblioteca_db
         {
             this.Nome = Nome;
             this.ScaffaliBiblioteca = new List<Scaffale>();
+
+            // recupera l'elenco degli scaffali
+            List<string> elencoScaffali = DB.scaffaliGet();
+            elencoScaffali.ForEach(item =>
+            {
+                //Scaffale s1 = new Scaffale(item);
+                //this.ScaffaliBiblioteca.Add(s1);
+                AggiungiScaffale(item, false);
+            });
         }
 
-        public void AggiungiScaffale(string NomeScaffale)
+        public void AggiungiScaffale(string NomeScaffale, bool addToDb=true)
         {
             Scaffale s1 = new Scaffale(NomeScaffale);
             ScaffaliBiblioteca.Add(s1);
+            DB.scaffaleAdd(s1.Numero);
         }
 
         public int GestisciOperazioniBiblioteca(int iCodiceOperazione)
@@ -43,7 +53,8 @@ namespace csharp_biblioteca_db
                     }
                     else
                     {
-                        StampaListaDocumenti();
+                        //StampaListaDocumenti();
+                        return 0;
                     }
                     break;
             }
