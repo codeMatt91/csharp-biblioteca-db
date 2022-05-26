@@ -21,10 +21,10 @@ namespace csharp_biblioteca_db // Note: actual namespace depends on the project 
                 b.ScaffaliBiblioteca.ForEach(item => Console.WriteLine(item.Numero));
 
             List<Autore> listaAutori = new List<Autore>();  
-            Autore autoreMioLibro = new Autore("Pinco", "Pallo", "PincoPallo@libero.it");
+            Autore autoreMioLibro = new Autore("Francesco", "Totti", "ErPupone@asroma.it");
             listaAutori.Add(autoreMioLibro);
             
-            b.AggiungiLibro(2, "La grande cavalcata", "Storia", 130, "SS2", listaAutori);
+            b.AggiungiLibro(DB.GetUniqueId(), "La grande bellezza", "Romanzo", 330, "SS2", listaAutori);
 
 
             //Console.WriteLine("lista operazioni");

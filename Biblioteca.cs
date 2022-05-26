@@ -40,7 +40,7 @@ namespace csharp_biblioteca_db
 
         
 
-        public void AggiungiLibro(int codice, string titolo, string settore,int numPagine,string scaffale, List<Autore> listaAutori)
+        public void AggiungiLibro(long codice, string titolo, string settore,int numPagine,string scaffale, List<Autore> listaAutori)
         {
             Libro mioLibro = new Libro(codice, titolo, settore, numPagine, scaffale);
             mioLibro.Stato = Stato.Disponibile;
