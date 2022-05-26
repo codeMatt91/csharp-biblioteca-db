@@ -89,8 +89,8 @@ namespace csharp_biblioteca_db
 
             foreach (Autore autore in listaAutori)
             {
-                var cmd1 = String.Format("INSERT INTO Autori(Nome, Cognome, email) values ('{0}', '{1}','{2}')",
-                autore.Nome, autore.Cognome, autore.email);
+                var cmd1 = String.Format("INSERT INTO Autori(codice,Nome, Cognome, email) values ('{0}', '{1}','{2}','{3}')",
+                autore.CodiceAutore, autore.Nome, autore.Cognome, autore.email);
 
                 using (SqlCommand insert = new SqlCommand(cmd1, conn))
                 {
