@@ -14,17 +14,37 @@ namespace csharp_biblioteca_db // Note: actual namespace depends on the project 
 
 
 
-                //b.AggiungiScaffale("SS1");
-                //b.AggiungiScaffale("SS2");
-                //b.AggiungiScaffale("SS3");
+            //b.AggiungiScaffale("SS1");
+            //b.AggiungiScaffale("SS2");
+            //b.AggiungiScaffale("SS3");
 
-                b.ScaffaliBiblioteca.ForEach(item => Console.WriteLine(item.Numero));
+            //b.ScaffaliBiblioteca.ForEach(item => Console.WriteLine(item.Numero));
 
-            List<Autore> listaAutori = new List<Autore>();  
-            Autore autoreMioLibro = new Autore("Francesco", "Totti", "ErPupone@asroma.it");
+
+            Console.WriteLine("INSERISCI UN LIBRO");
+            Console.WriteLine("Inserisci il nome dell'autore");
+            string nAutore = Console.ReadLine();
+            Console.WriteLine("Inserisci il cognome dell'autore");
+            string cAutore = Console.ReadLine();
+            Console.WriteLine("Inserisci la mail dell'autore");
+            string mAutore = Console.ReadLine();
+
+            Console.WriteLine("==========================================");
+
+            Console.WriteLine("Inserisci il titolo del libro");
+            string titoloLibro = Console.ReadLine();
+            Console.WriteLine("Inserisci il settore del libro");
+            string settoreLibro = Console.ReadLine();
+            Console.WriteLine("Inserisci il numero di pagine del libro");
+            int nPagineLibro = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Scegli tra queste liste dove inserire il libro: SS1,SS2,SS3");
+            string listaLLibro = Console.ReadLine();
+
+            List <Autore> listaAutori = new List<Autore>();  
+            Autore autoreMioLibro = new Autore(nAutore, cAutore, mAutore);
             listaAutori.Add(autoreMioLibro);
             
-            b.AggiungiLibro(DB.GetUniqueId(), "La grande bellezza", "Romanzo", 330, "SS2", listaAutori);
+            b.AggiungiLibro(DB.GetUniqueId(), titoloLibro, settoreLibro, nPagineLibro, listaLLibro, listaAutori);
 
 
             //Console.WriteLine("lista operazioni");
