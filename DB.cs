@@ -25,39 +25,131 @@ namespace csharp_biblioteca_db
             
         }
 
-        //internal static int libroAdd(Libro libro)
-        //{
+           
 
-        //    //Devo collegarmi e inviare un comando per inserire uno scaffale
-        //    var conn = Connect();
-        //    if (conn == null)
-        //    {
-        //        throw new Exception("Unable to connect to Database");
-        //    }
+        // METODO PER AGGIUNGERE UN LIBRO
+        internal static int libroAdd(Libro libro, List<Autore> listaAutori)
+        {
 
-        //    //Inserisco lo scaffale nella tabella scaffali
-        //    var cmd = String.Format("insert into Libri (scaffale) values ('{0}')", s1);
+            //Devo collegarmi e inviare un comando per inserire uno scaffale
+            var conn = Connect();
+            if (conn == null)
+            {
+                throw new Exception("Unable to connect to Database");
+            }
 
-        //    using (SqlCommand insert = new SqlCommand(cmd, conn))
-        //    {
-        //        try
-        //        {
+            //Inserisco lo scaffale nella tabella scaffali
+            var cmd = String.Format("insert into Documenti (codice,Titolo,Settore,Stato,Tipo,Scaffale) values ('{0}', '{1}', '{2}', '{3}', 'Libro', '{4}')", 
+                libro.Codice,libro.Titolo,libro.Settore,libro.Stato.ToString(),libro.Scaffale.Numero);
 
-        //            var numrows = insert.ExecuteNonQuery();
-        //            return numrows;
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            Console.WriteLine(ex.Message);
-        //            return 0;
-        //        }
-        //        finally
-        //        {
-        //            conn.Close();
-        //        }
-        //    }
-        //}
+            using (SqlCommand insert = new SqlCommand(cmd, conn))
+            {
+                try
+                {
 
+                    var numrows = insert.ExecuteNonQuery();
+                    if (numrows != 1)
+                    { 
+                        throw new Exception("Valore di ritorno errato prima query");
+                        conn.Close();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    return 0;
+                }
+               
+            }
+
+
+            var cmd2 = String.Format("insert into Libri(codice, NumPagine) values ('{0}', '{1}')",
+                libro.Codice, libro.NumeroPagine);
+
+            using (SqlCommand insert = new SqlCommand(cmd2, conn))
+            {
+                try
+                {
+
+                    var numrows = insert.ExecuteNonQuery();
+                    if (numrows != 1)
+                    {
+                        throw new Exception("Valore di ritorno errato seconda query");
+                        conn.Close();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    return 0;
+                }
+
+            }
+
+
+            foreach (Autore autore in listaAutori)
+            {
+                var cmd1 = String.Format("INSERT INTO Autori(Nome, Cognome, email) values ('{0}', '{1}','{2}')",
+                autore.Nome, autore.Cognome, autore.email);
+
+                using (SqlCommand insert = new SqlCommand(cmd1, conn))
+                {
+                    try
+                    {
+
+                        var numrows = insert.ExecuteNonQuery();
+                        if (numrows != 1)
+                        {
+                            throw new Exception("Valore di ritorno errato terza query");
+                            conn.Close();
+                        }
+
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        return 0;
+                    }
+
+                }
+            }
+
+            foreach (Autore autore in listaAutori)
+            {
+                var cmd3 = String.Format("INSERT INTO Autori_Documenti(codice_autore, codice_documento) values ('{0}', '{1}')",
+                autore.CodiceAutore, libro.Codice);
+
+                using (SqlCommand insert = new SqlCommand(cmd3, conn))
+                {
+                    try
+                    {
+
+                        var numrows = insert.ExecuteNonQuery();
+                        if (numrows != 1)
+                        {
+                            throw new Exception("Valore di ritorno errato quarta query");
+                            conn.Close();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        return 0;
+                    }
+
+                }
+            }
+            conn.Close();
+            return 0;
+
+        }
+
+
+
+
+
+
+        // METODO PER AGGIUNGERE SCAFFALE
         internal static int scaffaleAdd(string s1)
         {
 
@@ -91,6 +183,10 @@ namespace csharp_biblioteca_db
             }
         }
 
+
+
+
+        // METODO PER LEGGERE LA LISTA DEGLI SCAFFALI
         internal static List<string> scaffaliGet()
         { 
             List<string> ls = new List<string>();

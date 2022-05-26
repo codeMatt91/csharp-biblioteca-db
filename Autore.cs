@@ -8,11 +8,18 @@ namespace csharp_biblioteca_db
 {
     internal class Autore : Persona
     {
-        
-        public Autore(string Nome, string Cognome) : base(Nome, Cognome)
+        public int CodiceAutore;
+        public string email;
+        public Autore(string Nome, string Cognome, string Email) : base(Nome, Cognome)
         {
-            
+            this.email = Email;
+            this.CodiceAutore = GeneraCodiceAutore();
 
+        }
+
+        public int GeneraCodiceAutore()
+        {
+            return 10000 + Nome.Length + Cognome.Length + email.Length;
         }
     }
 }

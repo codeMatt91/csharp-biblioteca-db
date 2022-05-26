@@ -20,21 +20,21 @@ namespace csharp_biblioteca_db // Note: actual namespace depends on the project 
 
                 b.ScaffaliBiblioteca.ForEach(item => Console.WriteLine(item.Numero));
 
+            List<Autore> listaAutori = new List<Autore>();  
+            Autore autoreMioLibro = new Autore("Nome 3", "Cognome 3", "NomeCognome@libero.it");
+            listaAutori.Add(autoreMioLibro);
+            
+            b.AggiungiLibro(2, "La grande cavalcata", "Storia", 130, "SS2", listaAutori);
 
-            Autore a3 = new Autore("Nome 3", "Cognome 3");
 
-            Libro l2 = new Libro("ISBN2", "Titolo 2", 2009, "Storia", 130);
-            l2.Autori.Add(a3);  
-
-
-            Console.WriteLine("lista operazioni");
-                Console.WriteLine("\t1: cerca libro per autore");
-                Console.WriteLine("Cosa vuoi fare");
-                string sAppo = Console.ReadLine();
-                while (sAppo != "")
-                {
-                    b.GestisciOperazioniBiblioteca(Convert.ToInt32(sAppo));
-                }
+            //Console.WriteLine("lista operazioni");
+            //    Console.WriteLine("\t1: cerca libro per autore");
+            //    Console.WriteLine("Cosa vuoi fare");
+            //    string sAppo = Console.ReadLine();
+            //    while (sAppo != "")
+            //    {
+            //        b.GestisciOperazioniBiblioteca(Convert.ToInt32(sAppo));
+            //    }
 
                 //Libro l1 = new Libro("ISBN1", "Titolo 1", 2009, "Storia", 220);
 
