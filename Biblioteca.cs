@@ -57,6 +57,11 @@ namespace csharp_biblioteca_db
             DB.DvdAdd(mioDvd, listaAutori);
         }
 
+        public void CercaDocumentoPerAutore(string nome, string cognome)
+        { 
+            DB.GetAllDocumentByAuthor(nome, cognome);   
+        }
+
 
         public int GestisciOperazioniBiblioteca(int iCodiceOperazione)
         {

@@ -496,6 +496,7 @@ namespace csharp_biblioteca_db
 
         internal static List<Tuple<int, string, string, string, string, string>> documentiGet()
         {
+
             var ld = new List<Tuple<int, string, string, string, string, string>>();
             var conn = Connect();
             if (conn == null)
@@ -520,6 +521,49 @@ namespace csharp_biblioteca_db
             }
             conn.Close();
             return ld;
+        }
+
+
+
+        // Implementa un metodo per leggere tutti i documenti dal DB, dell'autore passando nome e cognome
+        internal static void GetAllDocumentByAuthor(string nome, string cognome)
+        {
+            var listDoc = new List<Tuple<string, string, string, string, string>>();
+
+            var conn = Connect();
+            if (conn == null)
+                throw new Exception("Unable to connect to the dabatase");
+
+            var sel = String.Format("SELECT Titolo, Settore, Stato, Tipo, Scaffale FROM Documenti " +
+                "inner join Autori_Documenti on Documenti.codice = Autori_Documenti.codice_documento " +
+                "inner join Autori on Autori_Documenti.codice_autore = Autori.codice " +
+                "WHERE Autori.Nome = '{0}' AND Autori.Cognome = '{1}'", nome, cognome);
+
+            using (SqlCommand select = new SqlCommand(sel, conn))
+            {
+                using (SqlDataReader reader = select.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var data = new Tuple<string, string, string, string, string>(
+                            reader.GetString(0),
+                            reader.GetString(1),
+                            reader.GetString(2),
+                            reader.GetString(3),
+                            reader.GetString(4));
+
+                            listDoc.Add(data);
+                    }
+                }
+            }
+            conn.Close();
+
+
+            foreach (Tuple<string, string, string, string, string> t in listDoc)
+            {
+                Console.WriteLine(t.ToString());
+            }
+
         }
     }
 }
