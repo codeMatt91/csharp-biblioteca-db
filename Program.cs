@@ -15,34 +15,40 @@ namespace csharp_biblioteca_db // Note: actual namespace depends on the project 
 
 
 
-            StreamReader reader = new StreamReader("elenco.txt");
-            string linea;
-            while ((linea = reader.ReadLine()) != null)
-            {
-                //una linea è, ad esempio: giuseppe mazzini e altri autori:a carlo alberto di savoja
-                var vett = linea.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
-                string s = vett[0];
-                var cn = s.Split(new char[] { ' ' });
-                string nome = cn[0];
-                string cognome = "";
-                try
-                {
-                    cognome = s.Substring(cn[0].Length + 1);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-                string titolo = vett[1];
-                Console.WriteLine("Nome: {0}, Cognome: {1}, Titolo: {2}", nome, cognome, titolo);
 
-                string email = nome + "@" + cognome + ".it";
+            //QUI RIEMPIO IL DB CON DEI DATI PRESI DA UN FILE .TXT
 
-                Autore MioAutore = new Autore(nome, cognome, email);
-                List<Autore> listaAutori = new List<Autore>();
-                listaAutori.Add(MioAutore);
-                b.AggiungiLibro(DB.GetUniqueId(), titolo, "Romanzo", 200, "SS1", listaAutori);
-            }
+            //StreamReader reader = new StreamReader("elenco.txt");
+            //string linea;
+            //while ((linea = reader.ReadLine()) != null)
+            //{
+            //    //una linea è, ad esempio: giuseppe mazzini e altri autori:a carlo alberto di savoja
+            //    var vett = linea.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+            //    string s = vett[0];
+            //    var cn = s.Split(new char[] { ' ' });
+            //    string nome = cn[0];
+            //    string cognome = "";
+            //    try
+            //    {
+            //         if(cognome.Lenght == 0)
+            //              cognome = "ND"
+            //         else
+            //              cognome = s.Substring(cn[0].Length + 1);
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        Console.WriteLine(ex.Message);
+            //    }
+            //    string titolo = vett[1];
+            //    Console.WriteLine("Nome: {0}, Cognome: {1}, Titolo: {2}", nome, cognome, titolo);
+
+            //    string email = nome + "@" + cognome + ".it";
+
+            //    Autore MioAutore = new Autore(nome, cognome, email);
+            //    List<Autore> listaAutori = new List<Autore>();
+            //    listaAutori.Add(MioAutore);
+            //    b.AggiungiLibro(DB.GetUniqueId(), titolo, "Romanzo", 200, "SS1", listaAutori);
+            //}
 
 
 
@@ -54,73 +60,77 @@ namespace csharp_biblioteca_db // Note: actual namespace depends on the project 
             //b.ScaffaliBiblioteca.ForEach(item => Console.WriteLine(item.Numero));
 
 
-            //Console.WriteLine("Per inserire un libro premi: 1");
-            //Console.WriteLine("Per inserire un DVD premi: 2");
-            //Console.WriteLine("Per cercare un documento per autore premi: 3");
-            //int choise = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Per inserire un libro premi: 1");
+            Console.WriteLine("Per inserire un DVD premi: 2");
+            Console.WriteLine("Per cercare un documento per autore premi: 3");
+            int choise = Convert.ToInt32(Console.ReadLine());
 
-            //if (choise == 1)
-            //{
-            //    Console.WriteLine("INSERISCI UN LIBRO");
-            //    Console.WriteLine("Inserisci il nome dell'autore");
-            //    string nAutore = Console.ReadLine();
-            //    Console.WriteLine("Inserisci il cognome dell'autore");
-            //    string cAutore = Console.ReadLine();
-            //    Console.WriteLine("Inserisci la mail dell'autore");
-            //    string mAutore = Console.ReadLine();
+            if (choise == 1)
+            {
+                Console.WriteLine("INSERISCI UN LIBRO");
+                Console.WriteLine("Inserisci il nome dell'autore");
+                string nAutore = Console.ReadLine();
+                Console.WriteLine("Inserisci il cognome dell'autore");
+                string cAutore = Console.ReadLine();
+                Console.WriteLine("Inserisci la mail dell'autore");
+                string mAutore = Console.ReadLine();
 
-            //    Console.WriteLine("==========================================");
+                Console.WriteLine("==========================================");
 
-            //    Console.WriteLine("Inserisci il titolo del libro");
-            //    string titoloLibro = Console.ReadLine();
-            //    Console.WriteLine("Inserisci il settore del libro");
-            //    string settoreLibro = Console.ReadLine();
-            //    Console.WriteLine("Inserisci il numero di pagine del libro");
-            //    int nPagineLibro = Convert.ToInt32(Console.ReadLine());
-            //    Console.WriteLine("Scegli tra questi scaffali dove inserire il libro: SS1,SS2,SS3");
-            //    string listaLLibro = Console.ReadLine();
+                Console.WriteLine("Inserisci il titolo del libro");
+                string titoloLibro = Console.ReadLine();
+                Console.WriteLine("Inserisci il settore del libro");
+                string settoreLibro = Console.ReadLine();
+                Console.WriteLine("Inserisci il numero di pagine del libro");
+                int nPagineLibro = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("Scegli tra questi scaffali dove inserire il libro: SS1,SS2,SS3");
+                string listaLLibro = Console.ReadLine();
 
-            //    List<Autore> listaAutori = new List<Autore>();
-            //    Autore autoreMioLibro = new Autore(nAutore, cAutore, mAutore);
-            //    listaAutori.Add(autoreMioLibro);
+                List<Autore> listaAutori = new List<Autore>();
+                Autore autoreMioLibro = new Autore(nAutore, cAutore, mAutore);
+                listaAutori.Add(autoreMioLibro);
 
-            //    b.AggiungiLibro(DB.GetUniqueId(), titoloLibro, settoreLibro, nPagineLibro, listaLLibro, listaAutori);
-            //}
-            //else if (choise == 2)
-            //{
-            //    Console.WriteLine("INSERISCI UN LIBRO");
-            //    Console.WriteLine("Inserisci il nome dell'autore");
-            //    string nAutore = Console.ReadLine();
-            //    Console.WriteLine("Inserisci il cognome dell'autore");
-            //    string cAutore = Console.ReadLine();
-            //    Console.WriteLine("Inserisci la mail dell'autore");
-            //    string mAutore = Console.ReadLine();
+                b.AggiungiLibro(DB.GetUniqueId(), titoloLibro, settoreLibro, nPagineLibro, listaLLibro, listaAutori);
+            }
+            else if (choise == 2)
+            {
+                Console.WriteLine("INSERISCI UN LIBRO");
+                Console.WriteLine("Inserisci il nome dell'autore");
+                string nAutore = Console.ReadLine();
+                Console.WriteLine("Inserisci il cognome dell'autore");
+                string cAutore = Console.ReadLine();
+                Console.WriteLine("Inserisci la mail dell'autore");
+                string mAutore = Console.ReadLine();
 
-            //    Console.WriteLine("==========================================");
+                Console.WriteLine("==========================================");
 
-            //    Console.WriteLine("Inserisci il titolo del libro");
-            //    string titoloDvd = Console.ReadLine();
-            //    Console.WriteLine("Inserisci il settore del libro");
-            //    string SettoreDvd = Console.ReadLine();
-            //    Console.WriteLine("Scegli tra questi scaffali dove inserire il libro: SS1,SS2,SS3");
-            //    string listaDvd = Console.ReadLine();
-            //    Console.WriteLine("Inserisci il numero di pagine del libro");
-            //    int durataDvd = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("Inserisci il titolo del libro");
+                string titoloDvd = Console.ReadLine();
+                Console.WriteLine("Inserisci il settore del libro");
+                string SettoreDvd = Console.ReadLine();
+                Console.WriteLine("Scegli tra questi scaffali dove inserire il libro: SS1,SS2,SS3");
+                string listaDvd = Console.ReadLine();
+                Console.WriteLine("Inserisci il numero di pagine del libro");
+                int durataDvd = Convert.ToInt32(Console.ReadLine());
 
-            //    List<Autore> listaAutori = new List<Autore>();
-            //    Autore autoreMioLibro = new Autore(nAutore, cAutore, mAutore);
-            //    listaAutori.Add(autoreMioLibro);
+                List<Autore> listaAutori = new List<Autore>();
+                Autore autoreMioLibro = new Autore(nAutore, cAutore, mAutore);
+                listaAutori.Add(autoreMioLibro);
 
-            //    b.AggiungiDvd(DB.GetUniqueId(), titoloDvd, SettoreDvd, listaDvd, durataDvd, listaAutori);
-            //}
-            //else if (choise == 3)
-            //{
-            //    b.CercaDocumentoPerAutore("Francesco", "Totti");
-            //}
-            //else
-            //{
-            //    Environment.Exit(0);
-            //}
+                b.AggiungiDvd(DB.GetUniqueId(), titoloDvd, SettoreDvd, listaDvd, durataDvd, listaAutori);
+            }
+            else if (choise == 3)
+            {
+                Console.WriteLine("Inserisci nome autore");
+                string nomeAutore = Console.ReadLine();
+                Console.WriteLine("Inserisci cognome autore");
+                string cognomeAutore = Console.ReadLine();
+                b.CercaDocumentoPerAutore(nomeAutore, cognomeAutore);
+            }
+            else
+            {
+                Environment.Exit(0);
+            }
 
 
 
