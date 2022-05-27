@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.SqlClient;
+using System.Windows;
 
 namespace csharp_biblioteca_db // Note: actual namespace depends on the project name.
 {
@@ -7,10 +8,10 @@ namespace csharp_biblioteca_db // Note: actual namespace depends on the project 
     {
         static void Main(string[] args)
         {
-           
 
+            
 
-                Biblioteca b = new Biblioteca("Civica");
+            Biblioteca b = new Biblioteca("Civica");
 
 
 
@@ -21,32 +22,71 @@ namespace csharp_biblioteca_db // Note: actual namespace depends on the project 
             //b.ScaffaliBiblioteca.ForEach(item => Console.WriteLine(item.Numero));
 
 
-            Console.WriteLine("INSERISCI UN LIBRO");
-            Console.WriteLine("Inserisci il nome dell'autore");
-            string nAutore = Console.ReadLine();
-            Console.WriteLine("Inserisci il cognome dell'autore");
-            string cAutore = Console.ReadLine();
-            Console.WriteLine("Inserisci la mail dell'autore");
-            string mAutore = Console.ReadLine();
+            Console.WriteLine("Per inserire un libro premi: 1");
+            Console.WriteLine("Per inserire un DVD premi: 2");
+            int choise = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("==========================================");
+            if (choise == 1)
+            {
+                Console.WriteLine("INSERISCI UN LIBRO");
+                Console.WriteLine("Inserisci il nome dell'autore");
+                string nAutore = Console.ReadLine();
+                Console.WriteLine("Inserisci il cognome dell'autore");
+                string cAutore = Console.ReadLine();
+                Console.WriteLine("Inserisci la mail dell'autore");
+                string mAutore = Console.ReadLine();
 
-            Console.WriteLine("Inserisci il titolo del libro");
-            string titoloLibro = Console.ReadLine();
-            Console.WriteLine("Inserisci il settore del libro");
-            string settoreLibro = Console.ReadLine();
-            Console.WriteLine("Inserisci il numero di pagine del libro");
-            int nPagineLibro = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Scegli tra queste liste dove inserire il libro: SS1,SS2,SS3");
-            string listaLLibro = Console.ReadLine();
+                Console.WriteLine("==========================================");
 
-            List <Autore> listaAutori = new List<Autore>();  
-            Autore autoreMioLibro = new Autore(nAutore, cAutore, mAutore);
-            listaAutori.Add(autoreMioLibro);
+                Console.WriteLine("Inserisci il titolo del libro");
+                string titoloLibro = Console.ReadLine();
+                Console.WriteLine("Inserisci il settore del libro");
+                string settoreLibro = Console.ReadLine();
+                Console.WriteLine("Inserisci il numero di pagine del libro");
+                int nPagineLibro = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("Scegli tra questi scaffali dove inserire il libro: SS1,SS2,SS3");
+                string listaLLibro = Console.ReadLine();
+
+                List<Autore> listaAutori = new List<Autore>();
+                Autore autoreMioLibro = new Autore(nAutore, cAutore, mAutore);
+                listaAutori.Add(autoreMioLibro);
+
+                b.AggiungiLibro(DB.GetUniqueId(), titoloLibro, settoreLibro, nPagineLibro, listaLLibro, listaAutori);
+            }
+            else if (choise == 2)
+            {
+                Console.WriteLine("INSERISCI UN LIBRO");
+                Console.WriteLine("Inserisci il nome dell'autore");
+                string nAutore = Console.ReadLine();
+                Console.WriteLine("Inserisci il cognome dell'autore");
+                string cAutore = Console.ReadLine();
+                Console.WriteLine("Inserisci la mail dell'autore");
+                string mAutore = Console.ReadLine();
+
+                Console.WriteLine("==========================================");
+
+                Console.WriteLine("Inserisci il titolo del libro");
+                string titoloDvd = Console.ReadLine();
+                Console.WriteLine("Inserisci il settore del libro");
+                string SettoreDvd = Console.ReadLine();
+                Console.WriteLine("Scegli tra questi scaffali dove inserire il libro: SS1,SS2,SS3");
+                string listaDvd = Console.ReadLine();
+                Console.WriteLine("Inserisci il numero di pagine del libro");
+                int durataDvd = Convert.ToInt32(Console.ReadLine());
+
+                List<Autore> listaAutori = new List<Autore>();
+                Autore autoreMioLibro = new Autore(nAutore, cAutore, mAutore);
+                listaAutori.Add(autoreMioLibro);
+
+                b.AggiungiDvd(DB.GetUniqueId(), titoloDvd, SettoreDvd, listaDvd, durataDvd, listaAutori);
+            }
+            else
+            { 
+                Environment.Exit(0);
+            }
             
-            b.AggiungiLibro(DB.GetUniqueId(), titoloLibro, settoreLibro, nPagineLibro, listaLLibro, listaAutori);
 
-
+           
             //Console.WriteLine("lista operazioni");
             //    Console.WriteLine("\t1: cerca libro per autore");
             //    Console.WriteLine("Cosa vuoi fare");
